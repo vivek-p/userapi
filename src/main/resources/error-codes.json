@@ -1,0 +1,6 @@
+{
+  "not_found" : {
+    "error_code": "ERR_NOT_FOUND",
+    "error_message": "Data not found"
+  }
+}

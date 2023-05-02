@@ -1,0 +1,24 @@
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: newUser
+    password: pass123
+
+workingEnvironment: dev
+
+spring.jpa.hibernate.ddl-auto: none
+spring.jpa.database: postgresql
+spring.jpa.generate-ddl: true
+spring.jpa.database-platform: com.skillset.userapi.config.PostgreSQL94CustomDialect
+
+access:
+  cors:
+    allowed-origins: "*"
+
+spring.jpa.show-sql: false
+spring.jpa.properties.hibernate.format_sql: false
+logging.level.org.hibernate.SQL: INFO
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: INFO
+logging.level.org.springframework.data.mongodb.core.MongoTemplate: INFO
+---
