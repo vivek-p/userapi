@@ -40,10 +40,10 @@ public class SkillService {
         return skillRepository.save(skill);
     }
 
-    public Skill updateSkill(Long id, Skill skillRequest) {
+    public Skill updateSkill(Long id, SkillRequest skillRequest) {
         log.trace("update skill {obj}, ", skillRequest);
         Skill skill = skillRepository.findById(id).orElseThrow(()-> new NotFoundException(errorCodes.getNotFound()));
-        skill.setSkillName(skill.getSkillName());
+        skill.setSkillName(skillRequest.getSkillName());
         return skillRepository.save(skill);
     }
 
