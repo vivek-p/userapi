@@ -1,24 +1,35 @@
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: newUser
     password: pass123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    generate-ddl: true
+    database-platform:
+    properties:
+      hibernate:
+        format_sql: false
+    show-sql: false
 
 workingEnvironment: dev
-
-spring.jpa.hibernate.ddl-auto: none
-spring.jpa.database: postgresql
-spring.jpa.generate-ddl: true
-spring.jpa.database-platform: com.skillset.userapi.config.PostgreSQL94CustomDialect
 
 access:
   cors:
     allowed-origins: "*"
 
-spring.jpa.show-sql: false
-spring.jpa.properties.hibernate.format_sql: false
-logging.level.org.hibernate.SQL: INFO
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder: INFO
-logging.level.org.springframework.data.mongodb.core.MongoTemplate: INFO
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: info
+    org.hibernate: debug
 ---

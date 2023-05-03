@@ -21,22 +21,10 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        RequestParameterBuilder tokenBuilder = new RequestParameterBuilder();
-        tokenBuilder
-                .required(false)
-                .in("header")
-                .accepts(Collections.singleton(MediaType.APPLICATION_JSON))
-                .build();
-        List<RequestParameter> parameters = new ArrayList<>();
-        parameters.add(tokenBuilder.build());
-
-
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
-        docket.globalRequestParameters(parameters);
-        return docket;
     }
 }

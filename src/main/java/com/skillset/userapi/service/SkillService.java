@@ -1,16 +1,21 @@
 package com.skillset.userapi.service;
 
 import com.skillset.userapi.converter.SkillConverter;
+import com.skillset.userapi.converter.SkillRatingConverter;
 import com.skillset.userapi.domain.Skill;
+import com.skillset.userapi.enums.SkillRatingEnum;
 import com.skillset.userapi.exception.ErrorCodes;
 import com.skillset.userapi.exception.NotFoundException;
+import com.skillset.userapi.model.SkillRatingEnumResponse;
 import com.skillset.userapi.model.SkillRequest;
+import com.skillset.userapi.repository.SkillRatingRepository;
 import com.skillset.userapi.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -20,9 +25,13 @@ public class SkillService {
 
     private final SkillRepository skillRepository;
 
+    private final SkillRatingRepository skillRatingRepository;
+
     private final ErrorCodes errorCodes;
 
     private final SkillConverter skillConverter;
+
+    private final SkillRatingConverter skillRatingConverter;
 
     public Skill findById(Long id) {
         log.trace("find by {id}, ", id);
@@ -31,7 +40,16 @@ public class SkillService {
 
     public List<Skill> findByNameLike(String criteria, Pageable pageable) {
         log.trace("find by name like {criteria}, ", criteria);
-        return skillRepository.findBySkillNameLike("%" + criteria + "%", pageable);
+        return skillRepository.findBySkillNameLikeIgnoreCase("%" + criteria + "%", pageable);
+    }
+
+    public List<Long> getSkillIdsBySkillNameLike(String criteria) {
+        return skillRepository.findIdsBySkillNameLike(criteria);
+    }
+
+    public List<SkillRatingEnumResponse> getSkillRatings() {
+        log.trace("Skill ratings");
+        return skillRatingConverter.convertEnumToResponses();
     }
 
     public Skill createSkill(SkillRequest skillRequest) {

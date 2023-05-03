@@ -10,8 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "skill", schema = "user_api", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "skill"}, name = Skill.SkillInfoIndex.SKILL_NAME_UNIQUE_IDX) })
+@Table(name = "skill")
 public class Skill {
 
     @Id

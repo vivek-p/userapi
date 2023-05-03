@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>, PagingAndSortingRepository<Employee, Long> {
 
-    List<Employee> findByEmployeeNameLike(String employeeName, Pageable pageable);
+    List<Employee> findByEmployeeNameLikeIgnoreCase(String criteria, Pageable pageable);
 }

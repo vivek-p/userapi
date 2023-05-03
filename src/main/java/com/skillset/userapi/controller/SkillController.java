@@ -2,6 +2,8 @@ package com.skillset.userapi.controller;
 
 import com.skillset.userapi.converter.SkillConverter;
 import com.skillset.userapi.domain.Skill_;
+import com.skillset.userapi.enums.SkillRatingEnum;
+import com.skillset.userapi.model.SkillRatingEnumResponse;
 import com.skillset.userapi.model.SkillRequest;
 import com.skillset.userapi.model.SkillResponse;
 import com.skillset.userapi.service.SkillService;
@@ -46,6 +48,12 @@ public class SkillController {
                                              @Parameter(description = "Pagination Object to get groups")
                                              Pageable pageable) {
         return skillConverter.toResponses(skillService.findByNameLike(criteria, pageable));
+    }
+
+    @GetMapping("/getSkillRatingConstants")
+    @ApiOperation(value = "Operation to get skill rating mapping", notes = "Api operation to return skill rating enum")
+    public List<SkillRatingEnumResponse> getSkillRatingMapping() {
+        return skillService.getSkillRatings();
     }
 
     @PostMapping

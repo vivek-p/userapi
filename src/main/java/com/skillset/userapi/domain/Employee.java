@@ -10,8 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "employee", schema = "employee_api", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "employee_name"}, name = Employee.EmployeeInfoIndex.EMP_NAME_UNIQUE_IDX) })
+@Table(name = "employee")
 public class Employee {
 
         @Id
@@ -25,7 +24,7 @@ public class Employee {
         @Column(name = "department", length = 50)
         private String department;
 
-        @OneToMany(mappedBy = "user")
+        @OneToMany(mappedBy = "employee")
         List<SkillRating> skillRatings;
 
         @Override

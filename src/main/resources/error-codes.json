@@ -2,5 +2,9 @@
   "not_found" : {
     "error_code": "ERR_NOT_FOUND",
     "error_message": "Data not found"
+  },
+  "invalid_skill_rating" : {
+    "error_code": "ERR_INVALID_SKILL_RATING",
+    "error_message": "Invalid skill rating"
   }
 }

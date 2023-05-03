@@ -2,6 +2,7 @@ package com.skillset.userapi.controller;
 
 import com.skillset.userapi.converter.EmployeeConverter;
 import com.skillset.userapi.domain.Employee_;
+import com.skillset.userapi.domain.SkillRating;
 import com.skillset.userapi.model.EmployeeRequest;
 import com.skillset.userapi.model.EmployeeResponse;
 import com.skillset.userapi.service.EmployeeService;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/employee")
 @CrossOrigin(origins = "${access.cors.allowed-origins}", exposedHeaders = { "Access-Control-Allow-Origin",
         "content-disposition" }, methods = { RequestMethod.OPTIONS, RequestMethod.POST,
         RequestMethod.GET, RequestMethod.DELETE, RequestMethod.PUT })
@@ -50,9 +51,29 @@ public class EmployeeController {
                                                 Boolean includeSkills,
                                                 @PageableDefault(size = 10, sort = Employee_.ID,
                                                         direction = Sort.Direction.DESC)
-                                                    @Parameter(description = "Pagination Object to get groups")
+                                                    @Parameter(description = "Pagination Object to get employees")
                                                     Pageable pageable) {
         return employeeConverter.toResponses(employeeService.getEmployeesByNameLike(criteria, includeSkills, pageable));
+    }
+
+    @GetMapping("/searchBySkillName/{skillNameLike}")
+    @ApiOperation(value = "Operation to get employees by matching skill name(Like search)",
+            notes = "Api operation to search employees by skill name(Like search)")
+    public List<EmployeeResponse> searchBySkillName(@PathVariable(name = "skillNameLike")
+                                      @Parameter(description = "Skill name like", required = true)
+                                      String skillNameLike, @PageableDefault(size = 10, sort = Employee_.ID,
+                                        direction = Sort.Direction.DESC)
+                                  @Parameter(description = "Pagination Object to get employees") Pageable pageable) {
+        return employeeService.searchEmployeesBySkillName(skillNameLike, pageable);
+    }
+
+    @GetMapping("/searchBySkillIds/{skillIds}")
+    @ApiOperation(value = "Operation to get employees by matching skill ids",
+            notes = "Api operation to search employees by skill ids")
+    public List<EmployeeResponse> searchBySkillIds(@PathVariable(name = "skillIds")
+                                                       @Parameter(description = "Skill ids", required = true)
+                                                       List<Long> skillIds) {
+        return employeeService.searchEmployeesBySkillIds(skillIds);
     }
 
     @PostMapping

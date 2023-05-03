@@ -14,4 +14,9 @@ public class ErrorCodes {
     @JsonProperty("not_found")
     private ErrorCodeMessage notFound;
 
+    @NotNull
+    @Valid
+    @JsonProperty("invalid_skill_rating")
+    private ErrorCodeMessage invalidSkillRating;
+
 }

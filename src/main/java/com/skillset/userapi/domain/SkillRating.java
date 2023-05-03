@@ -1,9 +1,6 @@
 package com.skillset.userapi.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,16 +9,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "skill_rating", schema = "user_api")
+@ToString
+@Table(name = "skill_rating")
 public class SkillRating {
 
     @EmbeddedId
     SkillRatingKey id;
 
     @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
-    Employee user;
+    @MapsId("employeeId")
+    @JoinColumn(name = "employee_id")
+    Employee employee;
 
     @ManyToOne
     @MapsId("skillId")

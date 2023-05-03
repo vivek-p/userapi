@@ -17,5 +17,5 @@ public class EmployeeRequest {
 
     private String department;
 
-    private List<Long> skillIds;
+    private List<SkillRatingRequest> skillRating;
 }

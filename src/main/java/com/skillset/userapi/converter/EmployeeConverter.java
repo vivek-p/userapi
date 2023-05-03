@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 public class EmployeeConverter {
 
     public EmployeeResponse convertToResponse(Employee employee) {
-        return EmployeeResponse.builder().id(employee.getId()).department(employee.getDepartment()).build();
+        return EmployeeResponse.builder().id(employee.getId()).employeeName(employee.getEmployeeName())
+                .department(employee.getDepartment()).build();
     }
 
     public List<EmployeeResponse> toResponses(List<Employee> employeeList) {
