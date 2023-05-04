@@ -42,6 +42,7 @@ public class EmployeeService {
         if(includeSkills) {
             employee.getSkillRatings();
         }
+
         return employee;
     }
 
@@ -60,11 +61,13 @@ public class EmployeeService {
     public List<EmployeeResponse> searchEmployeesBySkillName(String skillName, Pageable pageable) {
         log.trace("searchEmployeesBySkillName {skillName}, ", skillName);
         List<Long> skillIdList = skillService.getSkillIdsBySkillNameLike(skillName);
+
         return skillRatingService.searchBySkillIdsIn(skillIdList);
     }
 
     public List<EmployeeResponse> searchEmployeesBySkillIds(List<Long> skillIds) {
         log.trace("searchEmployeesBySkillIds {skillIds}, ", skillIds);
+
         return skillRatingService.searchBySkillIdsIn(skillIds);
     }
 
@@ -79,7 +82,7 @@ public class EmployeeService {
     public Employee updateEmployee(Long id, EmployeeRequest employeeRequest) {
         log.trace("Update employee, request obj{}, ", employeeRequest);
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new NotFoundException(errorCodes.getNotFound()));
-        List<SkillRating> employeeSkillRating = new ArrayList<>();
+
 
         if(!Objects.isNull(employeeRequest)) {
 
@@ -88,16 +91,24 @@ public class EmployeeService {
             }
 
             if(!CollectionUtils.isEmpty(employeeRequest.getSkillRating())) {
-                employeeRequest.getSkillRating().forEach(skillRating -> {
-                    employeeSkillRating.add(skillRatingService.createNewSkillRating(employee,
-                            skillService.findById(skillRating.getSkillId())
-                            , skillRating.getSkillRating()));
-                });
-                employee.setSkillRatings(employeeSkillRating);
+                employee = addSkillRatingsToEmployee(employee, employeeRequest);
             }
+
         }
 
         return employeeRepository.save(employee);
+    }
+
+    private Employee addSkillRatingsToEmployee(Employee employee, EmployeeRequest employeeRequest) {
+        List<SkillRating> employeeSkillRating = new ArrayList<>();
+        employeeRequest.getSkillRating().forEach(skillRating -> {
+            employeeSkillRating.add(skillRatingService.createNewSkillRating(employee,
+                    skillService.findById(skillRating.getSkillId())
+                    , skillRating.getSkillRating()));
+        });
+        employee.setSkillRatings(employeeSkillRating);
+
+        return employee;
     }
 
     public void deleteEmployee(Long id) {

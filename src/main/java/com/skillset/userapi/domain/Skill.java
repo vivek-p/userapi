@@ -18,7 +18,7 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "skill_name", nullable = false, length = 50)
+    @Column(name = "skill_name", nullable = false, unique = true, length = 50)
     private String skillName;
 
     @OneToMany(mappedBy = "employee")

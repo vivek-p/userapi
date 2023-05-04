@@ -19,8 +19,6 @@ public interface SkillRatingRepository extends JpaRepository<SkillRating, SkillR
 
     List<SkillRating> findByIdSkillId(Long skillId);
 
-    List<SkillRating> findByIdSkillIdIn(List<Long> skillIds);
-
     String searchQuery = "SELECT e.id AS employeeId, e.employee_name AS employeeName, e.department, s.id AS skillId, " +
             "s.skill_name AS skillName, r.rating FROM skill_rating r left join skill s on r.skill_id = s.id " +
             "left join employee e on r.employee_id = e.id where s.id in :skillIds";
