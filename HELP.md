@@ -1,16 +1,12 @@
 # Getting Started
-
+Clone the application from GitHub
+Make sure to have java and maven installed and the environment variable set.
+Navigate to the cloned location and run the command ./mvnw spring-boot:run
+The server starts up at port 8080
+Swagger UI is set up on the application and would be available at http://{host}:{port}/swagger-ui/
 ### Reference Documentation
 For further reference, please consider the following sections:
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.11/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.11/maven-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.7.11/reference/htmlsingle/#using.devtools)
+* [Spring Data JPA Composite Keys] (https://www.baeldung.com/jpa-composite-primary-keys)
 * [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.7.11/reference/htmlsingle/#data.sql.jpa-and-spring-data)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
